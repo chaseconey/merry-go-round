@@ -7,21 +7,10 @@ class ReceiversController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
-		$receivers = Receiver::all();
+	public function index() {
+		$receivers = Receiver::paginate();
 
 		return View::make('receivers.index', compact('receivers'));
-	}
-
-	/**
-	 * Show the form for creating a new receiver
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('receivers.create');
 	}
 
 	/**
@@ -29,13 +18,13 @@ class ReceiversController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store() {
 		$validator = Validator::make($data = Input::all(), Receiver::$rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
+		if ($validator->fails()) {
+			return Redirect::back()
+				->withErrors($validator)
+				->withInput();
 		}
 
 		Receiver::create($data);
@@ -44,26 +33,13 @@ class ReceiversController extends \BaseController {
 	}
 
 	/**
-	 * Display the specified receiver.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$receiver = Receiver::findOrFail($id);
-
-		return View::make('receivers.show', compact('receiver'));
-	}
-
-	/**
 	 * Show the form for editing the specified receiver.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
+	 *
 	 * @return Response
 	 */
-	public function edit($id)
-	{
+	public function edit($id) {
 		$receiver = Receiver::find($id);
 
 		return View::make('receivers.edit', compact('receiver'));
@@ -72,18 +48,19 @@ class ReceiversController extends \BaseController {
 	/**
 	 * Update the specified receiver in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
+	 *
 	 * @return Response
 	 */
-	public function update($id)
-	{
+	public function update($id) {
 		$receiver = Receiver::findOrFail($id);
 
 		$validator = Validator::make($data = Input::all(), Receiver::$rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
+		if ($validator->fails()) {
+			return Redirect::back()
+				->withErrors($validator)
+				->withInput();
 		}
 
 		$receiver->update($data);
@@ -92,16 +69,23 @@ class ReceiversController extends \BaseController {
 	}
 
 	/**
-	 * Remove the specified receiver from storage.
+	 * Figure out who should receive next call
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @return \Illuminate\Database\Eloquent\Model|null|static
 	 */
-	public function destroy($id)
-	{
-		Receiver::destroy($id);
+	public function nextReceiver() {
 
-		return Redirect::route('receivers.index');
+		$distribution = Receiver::select(DB::raw('receivers.*, count(*) as call_count'))
+			->leftJoin('calls', 'calls.receiver_id', '=', 'receivers.id')
+			->groupBy('receivers.id')
+			->orderBy('call_count', 'asc');
+
+		if ($excludes = Input::get('excludes')) {
+			$distribution = $distribution->whereNotIn('receivers.id', $excludes);
+		}
+
+		return $distribution->first();
+
 	}
 
 }

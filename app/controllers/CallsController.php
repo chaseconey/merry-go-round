@@ -7,21 +7,10 @@ class CallsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
-		$calls = Call::all();
+	public function index() {
+		$calls = Call::paginate();
 
 		return View::make('calls.index', compact('calls'));
-	}
-
-	/**
-	 * Show the form for creating a new call
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('calls.create');
 	}
 
 	/**
@@ -29,28 +18,28 @@ class CallsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store() {
 		$validator = Validator::make($data = Input::all(), Call::$rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
+		if ($validator->fails()) {
+			return Redirect::back()
+				->withErrors($validator)
+				->withInput();
 		}
 
 		Call::create($data);
 
-		return Redirect::route('calls.index');
+		return Redirect::back();
 	}
 
 	/**
 	 * Display the specified call.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
+	 *
 	 * @return Response
 	 */
-	public function show($id)
-	{
+	public function show($id) {
 		$call = Call::findOrFail($id);
 
 		return View::make('calls.show', compact('call'));
@@ -59,11 +48,11 @@ class CallsController extends \BaseController {
 	/**
 	 * Show the form for editing the specified call.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
+	 *
 	 * @return Response
 	 */
-	public function edit($id)
-	{
+	public function edit($id) {
 		$call = Call::find($id);
 
 		return View::make('calls.edit', compact('call'));
@@ -72,18 +61,19 @@ class CallsController extends \BaseController {
 	/**
 	 * Update the specified call in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
+	 *
 	 * @return Response
 	 */
-	public function update($id)
-	{
+	public function update($id) {
 		$call = Call::findOrFail($id);
 
 		$validator = Validator::make($data = Input::all(), Call::$rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
+		if ($validator->fails()) {
+			return Redirect::back()
+				->withErrors($validator)
+				->withInput();
 		}
 
 		$call->update($data);
@@ -94,11 +84,11 @@ class CallsController extends \BaseController {
 	/**
 	 * Remove the specified call from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
+	 *
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
+	public function destroy($id) {
 		Call::destroy($id);
 
 		return Redirect::route('calls.index');

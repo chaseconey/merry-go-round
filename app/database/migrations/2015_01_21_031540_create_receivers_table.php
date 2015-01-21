@@ -15,6 +15,7 @@ class CreateReceiversTable extends Migration {
 		Schema::create('receivers', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('name')->unique();
 			$table->timestamps();
 		});
 	}

@@ -1,1 +1,0 @@
-/home/vagrant/Code/merry-go-round/app/views/receivers/show.blade.php

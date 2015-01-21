@@ -15,6 +15,11 @@ class CreateCallsTable extends Migration {
 		Schema::create('calls', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('name');
+			$table->string('phone');
+			$table->text('notes')->nullable();
+			$table->integer('receiver_id');
+			$table->integer('user_id');
 			$table->timestamps();
 		});
 	}

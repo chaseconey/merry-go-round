@@ -15,7 +15,11 @@
     <div id="nav" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
       	 <li>{{ HTML::link('/', 'Home') }}</li>
+      	 <li>{{ HTML::linkRoute('receivers.index', 'Receivers') }}</li>
+      	 <li>{{ HTML::linkRoute('calls.index', 'Calls') }}</li>
       </ul>
+
+      <button type="button" class="btn btn-primary navbar-btn" id="call-btn">New Call</button>
 
       	<ul class="nav navbar-nav navbar-right">
 		  <li class="dropdown">
