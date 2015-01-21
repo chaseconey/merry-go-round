@@ -27,6 +27,8 @@ will grab the next person with the least number of received calls. Pretty simple
 * Go to root of project `cd /var/www/html/merry-go-round`
 * Install dependencies `composer install`
 * Set environment variables (See below)
+* Setup database credentials (this can be configured in `app/config/database.php`)
+* Create database called `forge` (or whatever you set in `database.php` above)
 * Run migrations `php artisan migrate`
 * Generate key `php artisan key:generate`
 * Create your first user `php artisan app:create-user "Full Name" "email@email.com" "password"`
