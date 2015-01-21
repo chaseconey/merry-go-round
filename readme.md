@@ -14,6 +14,31 @@ will grab the next person with the least number of received calls. Pretty simple
 * Logs who creates said calls
 * Dynamically add any set of receivers
 
+## Requirements
+
+* PHP >= 5.4
+* MCrypt PHP Extension
+* MySQL/Postgres/SQLite/SQL Server
+* Nginx or Apache
+
+## Quick Start
+
+* Clone/Download Repo to web-accessible area `cd /var/www/html && git clone git@github.com:chaseconey/merry-go-round.git`
+* Go to root of project `cd /var/www/html/merry-go-round`
+* Install dependencies `composer install`
+* Set environment variables (See below)
+* Run migrations `php artisan migrate`
+* Generate key `php artisan key:generate`
+* Create your first user `php artisan app:create-user "Full Name" "email@email.com" "password"
+
+### Environment Variables
+
+This application relies on having certain environment variables setup for the application to work. For more information
+on different ways to set these, see [the documentation](http://laravel.com/docs/4.2/configuration#protecting-sensitive-configuration).
+Below is a list of required application environment variables
+
+* DB_PASSWORD
+
 ## License
 
 merry-go-round is open-sourced software licensed under the [MIT license](https://github.com/chaseconey/merry-go-round/blob/master/LICENSE)
