@@ -25,7 +25,6 @@
               </div>
 
               {{ Form::hidden('receiver_id', null) }}
-              {{ Form::hidden('user_id', Auth::user()->id) }}
 
               <!--- Phone Field --->
               <div class="form-group">

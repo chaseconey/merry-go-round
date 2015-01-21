@@ -6,6 +6,8 @@
     <div class="row">
         <div class="col-md-12">
 
+            <a class="btn btn-success" href="{{ URL::route('calls.edit', [$call->id]) }}">Edit</a>
+            
             <h2>{{{ $call->name }}} <small>{{{ $call->phone }}}</small></h2>
 
             <div class="row">

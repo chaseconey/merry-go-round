@@ -8,7 +8,7 @@ class CallsController extends \BaseController {
 	 * @return Response
 	 */
 	public function index() {
-		$calls = Call::paginate();
+		$calls = Call::orderBy('updated_at', 'desc')->paginate();
 
 		return View::make('calls.index', compact('calls'));
 	}
@@ -19,7 +19,8 @@ class CallsController extends \BaseController {
 	 * @return Response
 	 */
 	public function store() {
-		$validator = Validator::make($data = Input::all(), Call::$rules);
+		$data = Input::all() + ['user_id' => Auth::user()->id];
+		$validator = Validator::make($data, Call::$rules);
 
 		if ($validator->fails()) {
 			return Redirect::back()

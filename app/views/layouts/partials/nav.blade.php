@@ -19,8 +19,9 @@
       	 <li>{{ HTML::linkRoute('calls.index', 'Calls') }}</li>
       </ul>
 
+      @if(Auth::check())
       <button type="button" class="btn btn-primary navbar-btn" id="call-btn">New Call</button>
-
+      @endif
       	<ul class="nav navbar-nav navbar-right">
 		  <li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
