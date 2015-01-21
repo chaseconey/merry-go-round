@@ -29,7 +29,7 @@ will grab the next person with the least number of received calls. Pretty simple
 * Set environment variables (See below)
 * Run migrations `php artisan migrate`
 * Generate key `php artisan key:generate`
-* Create your first user `php artisan app:create-user "Full Name" "email@email.com" "password"
+* Create your first user `php artisan app:create-user "Full Name" "email@email.com" "password"`
 
 ### Environment Variables
 
